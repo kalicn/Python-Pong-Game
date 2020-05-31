@@ -1,12 +1,9 @@
 import pygame
 pygame.init()
 screen = pygame.display.set_mode([800, 600])
-pygame.display.set_caption("PingPong")
-keep_Going = True
+Run = True
 pic = pygame.image.load("wackyball.bmp")
 WHITE = (255, 255, 255)
-#colorkey = pic.get_at((0,0))
-#pic.set_colorkey(colorkey)
 picx = 0
 picy = 0
 BLACK = (0,0,0)
@@ -21,7 +18,7 @@ pich = 30
 points = 0
 lives = 10
 pygame.mixer.init()
-font = pygame.font.SysFont("None",32)
+font = pygame.font.SysFont("None",30)
 pop = pygame.mixer.Sound("get_point.wav")
 boing = pygame.mixer.Sound("hit_wall.wav")
 splat = pygame.mixer.Sound("splat.wav")
@@ -30,22 +27,22 @@ pygame.mixer.music.set_volume(0.25)
 pygame.mixer.music.play(-1)
 
 
-while keep_Going:      
+while Run:      
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            keep_Going = False
+            Run = False
         elif event.type == pygame.KEYDOWN:
             if event.type == pygame.K_a:
                 points = 0
                 live = 10
 
             
-    picx += speedx    #move
+    picx += speedx    
     picy += speedy
     
      
 
-    if picx <= 0 or picx + pic.get_width() >= 800:   #touch wall
+    if picx <= 0 or picx + pic.get_width() >= 800:   
         speedx =- speedx
         boing.play() #play sound
     if picy <= 0:
@@ -56,15 +53,15 @@ while keep_Going:
         speedy = -speedy
 
     screen.fill(BLACK)
-    screen.blit(pic, (picx, picy))   #blit ball
+    screen.blit(pic, (picx, picy))  
 
 
-    paddlex = pygame.mouse.get_pos()[0]   #paddle move
+    paddlex = pygame.mouse.get_pos()[0]   
     paddlex -= paddlew
-    pygame.draw.rect(screen, WHITE, (paddlex, paddley, paddlew, paddleh))   #draw paddle
+    pygame.draw.rect(screen, WHITE, (paddlex, paddley, paddlew, paddleh))   
 
 
-    if picy + pich >= paddley and picy + pich <= paddley + paddleh and speedy > 0:    #touch paddle
+    if picy + pich >= paddley and picy + pich <= paddley + paddleh and speedy > 0:    
         if picx + picw  >= paddlex + paddlew:
             points += 1   #got point
             pop.play()
@@ -82,10 +79,10 @@ while keep_Going:
 
 
     screen.blit(text, text_rect)
-    pygame.display.flip()  #update display
+    pygame.display.flip()  
     timer.tick(65)
 
-pygame.quit()   #quit 
+pygame.quit()   
     
 
 
